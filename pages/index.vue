@@ -1,9 +1,32 @@
 <template>
-  <Tutorial/>
+  <BaseLayout>
+    <template #headerBtn>
+      <vue-button name='create-game' id='createGame' label='Create Game' @click='onClick' />
+    </template>
+    <template #page>
+      <Landing />
+    </template>
+  </BaseLayout>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
+import Landing from '~/components/Landing'
+import BaseLayout from '~/components/layout/BaseLayout'
+import vueButton from '~/components/fields/vueButton'
 
-export default Vue.extend({})
+export default {
+  name: "Index",
+
+  components: {
+    BaseLayout,
+    Landing,
+    vueButton
+  },
+
+  methods: {
+    onClick() {
+      this.$nuxt.$options.router.push('/createGame')
+    }
+  }
+}
 </script>
