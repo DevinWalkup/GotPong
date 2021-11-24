@@ -1,18 +1,22 @@
 <template>
   <div :id='id'>
-    <div class='w-full'>
-      <Header>{{ header }}</Header>
-      <SubTitle>{{subTitle}}</SubTitle>
+    <div class='flex flex-1 justify-between items-center'>
+      <div>
+        <Header>{{ header }}</Header>
+        <SubTitle>{{ subTitle }}</SubTitle>
+      </div>
+      <div v-if='$slots.additionalHeader'>
+        <slot name='additionalHeader'></slot>
+      </div>
     </div>
-    <form @submit.prevent='onSubmit'>
-      <slot></slot>
-    </form>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 import Header from '~/components/layout/Header'
 import SubTitle from '~/components/layout/SubTitle'
+
 export default {
   name: 'PageContent',
 

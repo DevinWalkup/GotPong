@@ -2,52 +2,54 @@
   <page-content
     sub-title='Input the name of the game and the participants below!'
     header='Create a New Game'
-    id='new-game'
-    @submit='onSubmit'>
-    <div class='w-full mt-5 space-y-3'>
-      <vue-input
-        label='Game Name'
-        name='game-name'
-        id='gameName'
-        required
-        v-model='model.GameName'
-        placeholder='Game Name...' />
-      <vue-input
-        label='View Wins as Roman Numerals'
-        name='view-as-roman'
-        id='romanNumerals'
-        type='checkbox'
-        v-model='model.ViewWinsAsRomanNumerals'
-      />
-      <Header>
-        Players
-      </Header>
-      <div class='w-full' v-for='i in totalPlayers' :key='i'>
-        <div class='flex flex-1 justify-start space-x-5 items-center' @mouseenter='setActivePlayer(i)' @mouseleave='clearActivePlayer'>
-          <div @click='removePlayer(i)' v-if='isActivePlayer(i)'>
-          <XIcon class='w-4 h-4 text-red-500' />
+    id='new-game'>
+    <form @submit.prevent='onSubmit'>
+      <div class='w-full mt-5 space-y-3'>
+        <vue-input
+          label='Game Name'
+          name='game-name'
+          id='gameName'
+          required
+          v-model='model.GameName'
+          placeholder='Game Name...' />
+        <vue-input
+          label='View Wins as Roman Numerals'
+          name='view-as-roman'
+          id='romanNumerals'
+          type='checkbox'
+          v-model='model.ViewWinsAsRomanNumerals'
+        />
+        <Header>
+          Players
+        </Header>
+        <div class='w-full' v-for='i in totalPlayers' :key='i'>
+          <div class='flex flex-1 justify-start space-x-5 items-center' @mouseenter='setActivePlayer(i)'
+               @mouseleave='clearActivePlayer'>
+            <div @click='removePlayer(i)' v-if='isActivePlayer(i)'>
+              <XIcon class='w-4 h-4 text-red-500' />
+            </div>
+            <vue-input
+              label='Player Name'
+              :name='`player-name-${i}`'
+              :id='`playerName${i}`'
+              required
+              placeholder='Player Name...'
+              @input='handleAddPlayer($event, i)' />
+            <player-color-picker
+              v-if='currentPlayerNameSet(i)'
+              :player-name='getPlayerName(i)'
+              :color='getPlayerColor(i)'
+              :id='`player-color-${i}`'
+              @color='setPlayerColor($event, i)' />
           </div>
-          <vue-input
-            label='Player Name'
-            :name='`player-name-${i}`'
-            :id='`playerName${i}`'
-            required
-            placeholder='Player Name...'
-            @input='handleAddPlayer($event, i)' />
-          <player-color-picker
-            v-if='currentPlayerNameSet(i)'
-            :player-name='getPlayerName(i)'
-            :color='getPlayerColor(i)'
-            :id='`player-color-${i}`'
-            @color='setPlayerColor($event, i)'/>
         </div>
+        <vue-button name='add-player' id='addPlayer' label='Add Player' @click='addPlayer' />
       </div>
-      <vue-button name='add-player' id='addPlayer' label='Add Player' @click='addPlayer' />
-    </div>
-    <div class='sticky bottom-3 flex flex-1 justify-start space-x-4 mt-5'>
-      <vue-button name='create-game' id='createGame' label='Create Game' type='submit' />
-      <vue-button name='cancel' id='cancel' label='Cancel' type='button' variant='secondary' @click='cancel' />
-    </div>
+      <div class='sticky bottom-3 flex flex-1 justify-end space-x-4 mt-5'>
+        <vue-button name='create-game' id='createGame' label='Create Game' type='submit' />
+        <vue-button name='cancel' id='cancel' label='Cancel' type='button' variant='secondary' @click='cancel' />
+      </div>
+    </form>
   </page-content>
 </template>
 
@@ -84,8 +86,40 @@ export default {
   },
 
   methods: {
+    validateModel() {
+      let errors = [];
+
+      if (!this.model.GameName) {
+        errors.push('The Game Name is required!');
+      }
+
+      if (!this.model.Players.length) {
+        errors.push('There must be at least one player for the game!')
+      }
+
+      if (this.model.Players.some((player) => !player.PlayerName)) {
+        errors.push("The players name is required!");
+      }
+
+      if (errors.length) {
+        this.$store.dispatch('alerts/error', 'There were errors in the form!');
+      }
+
+      return errors.length === 0;
+    },
+
     onSubmit() {
-      console.log('Submitting')
+      if (!this.validateModel()) {
+        return;
+      }
+
+      this.$api.post('/create', this.model).then((resp) => {
+        this.$store.dispatch('alerts/success', "Game successfully created!");
+        this.$nuxt.$options.router.push(`/game/${resp.data.game.GameCode}`)
+        return;
+      }).catch((err) => {
+        this.$store.dispatch('alerts/error', err.message);
+      })
     },
 
     handleAddPlayer(name, index) {
@@ -122,7 +156,7 @@ export default {
 
     setActivePlayer(index) {
       if (index === 1) {
-        return false;
+        return false
       }
       this.activePlayerIndex = index
     },
@@ -136,9 +170,8 @@ export default {
     },
 
     removePlayer(index) {
-      console.log(index);
       if (index === 1) {
-        return;
+        return
       }
 
       let currentPlayer = this.getPlayer(index)
@@ -182,17 +215,17 @@ export default {
     },
 
     setPlayerColor(color, index) {
-      let currentPlayer = this.getPlayer(index);
+      let currentPlayer = this.getPlayer(index)
 
       if (!currentPlayer) {
-        return;
+        return
       }
 
-      currentPlayer.PlayerColor = color;
+      currentPlayer.PlayerColor = color
     },
 
     cancel() {
-      this.$emit('cancel');
+      this.$emit('cancel')
     }
   }
 }

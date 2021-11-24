@@ -7,7 +7,7 @@
     <form @submit.prevent='onSubmit'>
       <div class='w-full mt-5'>
         <vue-input
-          label='Game Code'
+          label='Games Code'
           name='game-code'
           id='gameCode'
           required
@@ -45,6 +45,12 @@ export default {
 
   methods: {
     onSubmit() {
+      if (!this.gameCode) {
+        this.$store.dispatch('alerts/error', 'The game code is required!');
+        return;
+      }
+
+      this.$nuxt.$options.router.push(`/game/${this.gameCode}`);
     },
     onClick() {
       console.log('redirecting')

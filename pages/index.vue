@@ -1,7 +1,7 @@
 <template>
   <BaseLayout>
     <template #headerBtn>
-      <vue-button name='create-game' id='createGame' label='Create Game' @click='onClick' />
+      <vue-button name='create-game' id='createGame' label='Create Games' @click='onClick' />
     </template>
     <template #page>
       <Landing />

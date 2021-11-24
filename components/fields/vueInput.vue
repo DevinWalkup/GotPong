@@ -90,6 +90,10 @@ export default {
         return
       }
 
+      if (newVal === undefined) {
+        return;
+      }
+
       let value = typeof newVal === 'string' ? newVal.trim() : newVal;
       this.$emit('input', value);
     },
