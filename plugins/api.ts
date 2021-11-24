@@ -32,8 +32,7 @@ const APIPlugin: Plugin = (context, inject) => {
   let {APP_URL} = context.env
 
 	$api = context.$axios.create({
-		baseURL: `${APP_URL}/api`,
-    withCredentials: true
+		baseURL: `/api`,
 	})
 
 	inject('api', $api)
