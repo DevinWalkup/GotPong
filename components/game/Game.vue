@@ -114,8 +114,6 @@ export default {
       this.$api.patch('setWinDisplay', {
         GameId: this.localGame.GameId,
         ViewWinsAsRomanNumerals: this.localGame.ViewWinsAsRomanNumerals
-      }).then(() => {
-        this.$store.dispatch('alerts/success', "Updated the game!");
       }).catch(() => {
         this.$store.dispatch('alerts/error', "Error updating the game!");
       })

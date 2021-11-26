@@ -19,3 +19,7 @@ export interface SetGameWinDisplayData {
   GameId: string,
   ViewWinsAsRomanNumerals: boolean
 }
+
+export interface RemoveGameData {
+  GameId: string
+}

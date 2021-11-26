@@ -19,6 +19,7 @@ async function CreatePlayer(data: CreatePlayerData, game): Promise<any> {
     data: {
       PlayerName: data.PlayerName,
       PlayerColor: data.PlayerColor,
+      CreateDate: new Date().toISOString(),
       Game: {
         connect: {
           GameId: game.GameId
@@ -48,7 +49,8 @@ export async function AddPlayerWin(playerId: string) : Promise<PlayerData> {
       PlayerId: playerId
     },
     data: {
-      Wins: {increment: 1}
+      Wins: {increment: 1},
+      UpdateDate: new Date().toISOString()
     },
     include: {
       Game: true

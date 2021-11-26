@@ -1,6 +1,6 @@
 import express from "express"
-import {CreateGameData, SetGameWinDisplayData} from "@includes/interfaces";
-import {CreateGame, GetGame, SetGameWinDisplay} from "../../../providers/games";
+import { CreateGameData, RemoveGameData, SetGameWinDisplayData } from '@includes/interfaces'
+import { CreateGame, DeleteGame, GetGame, SetGameWinDisplay } from '../../../providers/games'
 
 const app = express();
 
@@ -47,6 +47,23 @@ app.post('/create', (req, res) => {
       return res.status(200).send({"game": game});
     }).catch((err) => {
       return res.status(500).send({"message": err.message});
+    })
+  })
+  .delete('/deleteGame', (req, res) => {
+    let gameId  : string = req.query.gameId.toString();
+
+    if (!gameId) {
+      return res.status(400).send({"message": "The game id was not provided!"});
+    }
+
+    DeleteGame(gameId).then((success) => {
+      if (!success) {
+        return res.status(500).send({"success": false});
+      }
+
+      return res.status(200).send({"success": true});
+    }).catch(() => {
+      return res.status(500).send({"success": false});
     })
   })
 

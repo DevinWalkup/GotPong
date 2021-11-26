@@ -83,7 +83,6 @@ export default {
       }
 
       if (resp.data) {
-        console.log(resp.data.player);
         this.localPlayer = resp.data.player;
       } else {
         this.$store.dispatch('alerts/error', "Error adding player win!");

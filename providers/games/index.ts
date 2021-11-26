@@ -1,5 +1,5 @@
-import { CreateGameData, GameData, PlayerData, SetGameWinDisplayData } from '../../includes/interfaces'
-import { CreatePlayers, PlayerEntityToModel } from '../players'
+import { CreateGameData, GameData, PlayerData, RemoveGameData, SetGameWinDisplayData } from '../../includes/interfaces'
+import { PlayerEntityToModel } from '../players'
 import { generateGameCode } from '../../includes/functions'
 import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient()
@@ -10,12 +10,14 @@ export async function CreateGame(data: CreateGameData) : Promise<GameData> {
       GameName: data.GameName,
       GameCode: generateGameCode(),
       ViewWinsAsRomanNumerals: data.ViewWinsAsRomanNumerals,
+      CreateDate: new Date().toISOString(),
       Players: {
         createMany: {
           data: data.Players.map((player) => {
             return {
               PlayerName: player.PlayerName,
-              PlayerColor: player.PlayerColor
+              PlayerColor: player.PlayerColor,
+              CreateDate: new Date().toISOString()
             }
           })
         }
@@ -62,7 +64,8 @@ export async function SetGameWinDisplay(data: SetGameWinDisplayData): Promise<Ga
       GameId: data.GameId
     },
     data: {
-      ViewWinsAsRomanNumerals: data.ViewWinsAsRomanNumerals
+      ViewWinsAsRomanNumerals: data.ViewWinsAsRomanNumerals,
+      UpdateDate: new Date().toISOString()
     },
     include: {
       Players: true
@@ -90,4 +93,28 @@ export function GameEntityToModel(game) : GameData {
     ViewWinsAsRomanNumerals: game.ViewWinsAsRomanNumerals,
     Players: players
   }
+}
+
+export async function DeleteGame(gameId: string) : Promise<boolean> {
+  try {
+    let deletePlayers = prisma.player.deleteMany({
+      where: {
+        GameId: gameId
+      }
+    })
+
+    let deleteGame = prisma.game.delete({
+      where: {
+        GameId: gameId
+      }
+    });
+
+    await prisma.$transaction([deletePlayers, deleteGame]);
+  }
+  catch (e) {
+    console.error(e);
+    return false;
+  }
+
+  return true;
 }
