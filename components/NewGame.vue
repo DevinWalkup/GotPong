@@ -25,9 +25,12 @@
         <div class='w-full' v-for='i in totalPlayers' :key='i'>
           <div class='flex flex-1 justify-start space-x-5 items-center' @mouseenter='setActivePlayer(i)'
                @mouseleave='clearActivePlayer'>
-            <div @click='removePlayer(i)' v-if='isActivePlayer(i)'>
-              <XIcon class='w-4 h-4 text-red-500' />
-            </div>
+            <player-color-picker
+              v-if='currentPlayerNameSet(i)'
+              :player-name='getPlayerName(i)'
+              :color='getPlayerColor(i)'
+              :id='`player-color-${i}`'
+              @color='setPlayerColor($event, i)' />
             <vue-input
               label='Player Name'
               :name='`player-name-${i}`'
@@ -35,12 +38,9 @@
               required
               placeholder='Player Name...'
               @input='handleAddPlayer($event, i)' />
-            <player-color-picker
-              v-if='currentPlayerNameSet(i)'
-              :player-name='getPlayerName(i)'
-              :color='getPlayerColor(i)'
-              :id='`player-color-${i}`'
-              @color='setPlayerColor($event, i)' />
+            <div @click='removePlayer(i)' v-if='isActivePlayer(i)'>
+              <XIcon class='w-6 h-6 text-red-500' />
+            </div>
           </div>
         </div>
         <vue-button name='add-player' id='addPlayer' label='Add Player' @click='addPlayer' />

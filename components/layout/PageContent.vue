@@ -1,11 +1,11 @@
 <template>
   <div :id='id'>
-    <div class='flex flex-1 justify-between items-center'>
+    <div class='flex flex-wrap justify-center md:justify-between items-center'>
       <div>
         <Header>{{ header }}</Header>
         <SubTitle>{{ subTitle }}</SubTitle>
       </div>
-      <div v-if='$slots.additionalHeader'>
+      <div v-if='$slots.additionalHeader' class='mt-5 md:mt-0'>
         <slot name='additionalHeader'></slot>
       </div>
     </div>

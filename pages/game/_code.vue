@@ -4,7 +4,14 @@
       <vue-button id='cancel' name='cancel' label='Cancel' @click='redirect' />
     </template>
     <template #pageSectionTitle>
-      {{gameName}}
+      <div v-if='!loading'>
+        <div class='mb-5'>
+          <WarningAlert :alert='saveAlert' :show-dismiss-button='false' />
+        </div>
+        <p>
+          {{ gameName }}
+        </p>
+      </div>
     </template>
     <template #page>
       <Loader v-if='loading' />
@@ -21,6 +28,7 @@ import VueButton from '~/components/fields/vueButton'
 import Game from '~/components/game/Game'
 import Loader from '~/components/layout/Loader'
 import Header from '~/components/layout/Header'
+import WarningAlert from '~/components/alerts/WarningAlert'
 
 export default {
   async asyncData({ params }) {
@@ -31,6 +39,7 @@ export default {
   name: 'Game_code',
 
   components: {
+    WarningAlert,
     Header,
     Loader,
     VueButton,
@@ -51,7 +60,13 @@ export default {
         return ''
       }
 
-      return this.game.GameName;
+      return this.game.GameName
+    },
+
+    saveAlert() {
+      return {
+        Content: 'If you would like to save this game, copy the game code or click the box above the game code'
+      }
     }
   },
 
@@ -83,11 +98,11 @@ export default {
           return
         }
 
-        this.game = resp.data.game;
+        this.game = resp.data.game
         this.loading = false
       } catch (e) {
         this.$store.dispatch('alerts/error', e.message)
-        this.redirect();
+        this.redirect()
         return
       }
     }

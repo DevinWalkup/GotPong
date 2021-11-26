@@ -4,7 +4,12 @@
     header='Game Participants'
     id='participants'>
     <template #additionalHeader>
-      <div class='flex flex-1 space-x-2 items-center'>
+      <div class='flex flex-1 bg-gray-900 text-gray-400 hover:text-white rounded-md text-sm p-2 items-center space-x-3' @click='copyUrl'>
+        <ClipboardCopyIcon class='w-4 h-4' v-if='!copying'/>
+        <ClipboardCheckIcon class='w-4 h-4 text-green-500' v-if='copying'/>
+        <p class='w-36 truncate'>{{ url }}</p>
+      </div>
+      <div class='flex flex-1 space-x-2 items-center mt-3 md:mt-0'>
         <p class='text-red-500 font-bold text-sm'>Game Code:</p>
         <p class='text-white text-sm'>{{ localGame.GameCode }}</p>
       </div>
@@ -45,11 +50,15 @@ import PageContent from '~/components/layout/PageContent'
 import Player from '~/components/game/Player'
 import vueInput from '~/components/fields/vueInput'
 import vueButton from '~/components/fields/vueButton'
+import ClipboardCopyIcon from '~/components/Icons/ClipboardCopyIcon'
+import ClipboardCheckIcon from '~/components/Icons/ClipboardCheckIcon'
 
 export default {
   name: 'Game',
 
   components: {
+    ClipboardCheckIcon,
+    ClipboardCopyIcon,
     PageContent,
     Player,
     vueInput,
@@ -65,7 +74,8 @@ export default {
 
   data() {
     return {
-      localGame: {}
+      localGame: {},
+      copying: false
     }
   },
 
@@ -76,6 +86,22 @@ export default {
   methods: {
     addPlayer() {
       this.$nuxt.$options.router.push(`/addPlayer/${this.localGame.GameCode}`);
+    },
+
+    copyUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        this.copying = true;
+
+        setTimeout(() => {
+          this.copying = false;
+        }, 3000)
+      })
+    }
+  },
+
+  computed: {
+    url() {
+      return window.location.host + window.location.pathname;
     }
   },
 

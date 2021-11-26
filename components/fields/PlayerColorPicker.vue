@@ -96,6 +96,9 @@ export default {
       this.showPicker = !this.showPicker
 
       if (!this.showPicker) {
+        let ele = document.getElementById('color-picker')
+        ele.blur();
+
         return
       }
 

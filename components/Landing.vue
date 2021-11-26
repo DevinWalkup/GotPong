@@ -50,6 +50,11 @@ export default {
         return;
       }
 
+      if (this.gameCode.includes(window.location.href)) {
+        let lastIndex = this.gameCode.lastIndexOf('/');
+        this.gameCode = this.gameCode.substring(lastIndex + 1, this.gameCode.length);
+      }
+
       this.$nuxt.$options.router.push(`/game/${this.gameCode}`);
     },
     onClick() {
