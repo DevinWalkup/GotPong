@@ -1,37 +1,39 @@
-# expressive-nuxt
+# GotPong
+[Visit the site](http://www.gotpong.party)
 
-## Features
-- 99% TypeScript and uses ts-node <3
-- Database management with TypeORM
-- API with ExpressJS
-- User authenication and sessions
-- Email and Template System
-- Feed data directly into NuxtJS during SSR
-- NuxtContent + Socket.io
-- Beautifully Simple Premade Form Components
-- Basic theme system written in SCSS
-- ESLint + Prettier to keep it clean <3
-- Code Snippets
-- Path aliases
-- Recommended VSCode Extensions
+## About GotPong
+GotPong is a service that allows you to track you Beer Pong wins against your friends!
 
-## Setup
+## Why was this made?
+I made this because my friends, and I have long-running games of beer bong with each other.
+We wanted an easy way to keep track of our wins without having to reset the game once we 
+ran out of whiteboard space / paper.
 
-Before starting, be sure to copy `example.env` to `.env` and `ormconfig.example.json` to `ormconfig.json`. Fill in and replace the details to match what you have setup on your local machine. A database connection will be needed to start the application, SMTP is optional but recommended.
+It also will allow us to create new games whenever a new player comes, so we can have multiple
+long-running games at once
 
-Please note that when first running the app, it will most likely hang on "creating database connection." for a couple seconds. This is because it is creating the tables and schemas in the database. Future runs should be quicker unless it has to rebuild the database again. 
+## Any Future Plans?
+Yes, actually. The current version is just the MVP. 
 
-## Running
-```bash
-# install dependencies
-$ yarn install
+This is my first attempt at using Nuxt.js
+and having the API and site in a single project. I'm sure there is a lot of optimizations and clean up
+that can be done, so I will be revisiting the API logic and refactoring where I see fit. This was just
+a quick and dirty implementation to get the site live as quickly as possible
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+Some items that I would like to add are:
+- Game Play Type (Frat vs College)
+- Page to visit Beer Pong rules
+- Currently playing and next up (if multiple players in the game)
+- Players per round (1v1, 2v2, etc.)
+- Sockets so multiple people can view the game at once and see the updates live
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-```
+## Who is this for
+Anyone who wants to track the game wins for their Beer Pong games.
+The idea was to make this site as simple and easy to use as possible.
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+There are no expectations for this to grow massively, but if it does then thats awesome!
+
+## Technology
+This was built using [Nuxt.js](https://nuxtjs.org) and [Prisma](https://www.prisma.io/).
+I'm using [Heroku](https://heroku.com) for hosting and [Postgres](https://www.postgresql.org/)
+for the database.

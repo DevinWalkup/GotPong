@@ -39,6 +39,18 @@ export default {
     return { code }
   },
 
+  head() {
+    return {
+      title: `GotPong - ${this.game.GameName}`,
+      meta: [
+        {
+          name: 'description',
+          content: `${this.game.GameName} GotPong game`
+        }
+      ]
+    }
+  },
+
   name: 'Game_code',
 
   components: {

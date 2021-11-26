@@ -67,6 +67,12 @@ export default {
     }
   },
 
+  head() {
+    return {
+      title: `GotPong - Add New Player`
+    }
+  },
+
   components: {
     BaseLayout,
     vueInput,

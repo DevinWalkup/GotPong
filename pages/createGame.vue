@@ -22,6 +22,12 @@ export default {
     NewGame
   },
 
+  head() {
+    return {
+      title: 'GotPong - Create Game'
+    }
+  },
+
   methods: {
     redirect() {
       this.$nuxt.$options.router.push('/');
