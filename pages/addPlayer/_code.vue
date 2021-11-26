@@ -33,7 +33,7 @@
             </div>
             <vue-button name='add-player' id='addPlayer' label='Add Player' @click='addPlayer' />
           </div>
-          <div class='sticky bottom-3 flex flex-1 justify-end space-x-4 mt-5'>
+          <div class='bottom-3 flex flex-1 justify-end space-x-4 mt-5'>
             <vue-button name='save-players' id='savePlayers' label='Save' type='submit' />
             <vue-button name='cancel' id='cancel' label='Cancel' type='button' variant='secondary' @click='redirect' />
           </div>

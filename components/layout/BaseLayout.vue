@@ -15,22 +15,24 @@
         </div>
       </div>
     </div>
-    <div class='max-w-xs md:max-w-2xl w-full my-5 h-screen mx-auto'>
-      <main class='m-auto w-full h-full'>
+    <div class='max-w-xs md:max-w-2xl w-full mx-auto h-full mt-10 md:mt-24 mb-5'>
+      <main class='m-auto w-full justify-center'>
         <Header v-if='$slots.pageSectionTitle'>
           <slot name='pageSectionTitle'></slot>
         </Header>
-        <div class='bg-gray-700 rounded-sm shadow-lg p-4'>
+        <div class='bg-gray-700 rounded-sm shadow-lg p-4 h-full'>
           <slot name='page'></slot>
         </div>
       </main>
     </div>
-    <div class='sticky bottom-0 bg-gray-900 w-full'>
+    <div class='flex flex-1 relative mt-20'>
+    <div class='absolute bottom-0 bg-gray-900 w-full'>
       <div class='p-5 ml-5 flex flex-1 justify-start space-x-1 items-center'>
         <p class='text-white text-sm'>&copy;</p>
         <Logo variant='secondary' />
         <p class='text-white text-sm'>All rights reserved.</p>
       </div>
+    </div>
     </div>
   </div>
 </template>
