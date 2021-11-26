@@ -11,7 +11,7 @@ export interface GameData extends ModelData {
 
 export interface CreateGameData {
   GameName: string
-  ViewWinsAsRomanNumberals: boolean
+  ViewWinsAsRomanNumerals: boolean
   Players: Array<CreatePlayerData>
 }
 

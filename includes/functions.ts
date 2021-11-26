@@ -2,7 +2,7 @@ import { Router, Application } from 'express'
 
 export function loadAPIRoutes(router: Router | Application, p: string[]) {
 	p.forEach(route_path => {
-		const route: Router = require(`@api/${route_path}`).default
+		const route: Router = require(`../api/${route_path}`).default
 		if (!route) return
 		console.info(`loading @api/${route_path}`)
 		router.use(route)
