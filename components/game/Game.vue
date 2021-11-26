@@ -88,14 +88,19 @@ export default {
       this.$nuxt.$options.router.push(`/addPlayer/${this.localGame.GameCode}`);
     },
 
+    //TODO: Use navigator.clipboard.writeText if we go to paid dyno
     copyUrl() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        this.copying = true;
-
-        setTimeout(() => {
-          this.copying = false;
-        }, 3000)
-      })
+      let tempInput = document.createElement("input");
+      tempInput.value = window.location.href
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      
+      this.copying = true;
+      setTimeout(() => {
+        this.copying = false;
+      }, 2000)
     }
   },
 
