@@ -9,9 +9,34 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
+
+      //Default Meta Tags
+      { name: "name", content: "GotPong" },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { hid: 'description', name: 'description', content: 'A simple way to tally your Beer Pong wins!' },
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'keywords', content: 'Beer Pong, Tally, Party, Beer, Frat, Game, Vue.js, Nuxt.js, Express, Node.js'},
+      { name: 'author', content: 'Devin Walkup'},
+
+      //Schema.org markup for Google+
+      { itemprop: 'name', content: 'GotPong' },
+      { itemprop: 'description', content: "A simple way to tally your Beer Pong wins!" },
+      { itemprop: 'image', content: 'http://www.gotpong.party/Logo.png'},
+
+      //Twitter Card data
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:title', content: "GotPong" },
+      { name: 'twitter:description', content: 'A simple way to tally your Beer Pong wins!' },
+      { name: 'twitter:creator', content: '@dewalkup' },
+      { name: 'twitter:image:src', content: 'http://www.gotpong.party/Logo.png' },
+
+      //Open Graph Data for Facebook
+      {name: 'og:title', content: "GotPong"},
+      {name: 'og:type', content: "website"},
+      {name: 'og:url', content: "http://www.gotpong.party"},
+      {name: 'og:image', content: 'http://www.gotpong.party/Logo.png'},
+      {name: 'og:description', content: 'A simple way to tally your Beer Pong wins!'},
+      {name: 'og:site_name', content:"GotPong"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }

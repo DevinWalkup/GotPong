@@ -96,7 +96,7 @@ export default {
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
-      
+
       this.copying = true;
       setTimeout(() => {
         this.copying = false;
