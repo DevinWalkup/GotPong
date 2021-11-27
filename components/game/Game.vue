@@ -21,12 +21,12 @@
       </div>
 
       <div class='w-full mt-5'>
-        <div class='flex flex-wrap justify-center md:justify-between items-center'>
+        <div class='flex flex-wrap justify-start md:justify-between items-center'>
           <div>
             <Header>Currently Playing</Header>
             <SubTitle>The players that are currently playing</SubTitle>
           </div>
-          <div>
+          <div class='w-full items-center'>
             <vue-button name='completeRound' id='complete-round' label='Complete Round' @click='completeRound' />
           </div>
         </div>

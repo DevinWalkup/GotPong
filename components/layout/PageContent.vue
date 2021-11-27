@@ -1,6 +1,6 @@
 <template>
   <div :id='id'>
-    <div class='flex flex-wrap justify-center md:justify-between items-center'>
+    <div class='flex flex-wrap justify-start md:justify-between items-center'>
       <div>
         <Header>{{ header }}</Header>
         <SubTitle>{{ subTitle }}</SubTitle>
