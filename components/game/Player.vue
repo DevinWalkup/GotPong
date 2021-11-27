@@ -18,6 +18,7 @@
 <script>
 import Header from '~/components/layout/Header'
 import vueButton from '~/components/fields/vueButton'
+import {isEqual} from 'lodash'
 
 export default {
   name: 'Player',
@@ -109,6 +110,16 @@ export default {
       while (i--)
         roman = (key[+digits.pop() + (i * 10)] || '') + roman
       return Array(+digits.join('') + 1).join('M') + roman
+    }
+  },
+
+  watch: {
+    player(newVal, oldVal) {
+      if (isEqual(newVal, oldVal)) {
+        return;
+      }
+
+      this.localPlayer = JSON.parse(JSON.stringify(newVal))
     }
   }
 }
