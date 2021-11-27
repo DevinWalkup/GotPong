@@ -1,28 +1,47 @@
 <template>
-  <BaseLayout>
-    <template #headerBtn>
-      <vue-button id='cancel' name='cancel' label='Cancel' @click='redirect' />
-    </template>
-    <template #pageSectionTitle>
-      <div v-if='!loading'>
-        <div class='mb-5'>
-          <WarningAlert :alert='saveAlert' :show-dismiss-button='false' />
+  <div>
+    <rules-modal :rules-content='rulesContent' v-show='showRules' @close='showRules = false' />
+    <BaseLayout>
+      <template #headerBtn>
+        <vue-button id='cancel' name='cancel' label='Cancel' @click='redirect' />
+      </template>
+      <template #pageSectionTitle>
+        <div v-if='!loading'>
+          <div class='mb-5'>
+            <WarningAlert :alert='saveAlert' :show-dismiss-button='false' />
+          </div>
+          <div class='hidden md:flex flex-1 justify-center md:justify-between mb-3 space-x-4'>
+            <p>
+              {{ gameName }}
+            </p>
+            <div class='flex flex-1 space-x-2 justify-end'>
+              <vue-button name='showRules' variant='secondary' id='show-rules' label='Show Rules' type='button'
+                          @click='showRules = true' />
+              <vue-button name='delete' id='delete-game' label='Delete Game' type='button' @click='deleteGame' />
+            </div>
+          </div>
+          <div class='block md:hidden'>
+            <div class='w-full text-center'>
+              <p>
+                {{ gameName }}
+              </p>
+            </div>
+            <div class='flex flex-1 justify-between my-3'>
+              <vue-button name='showRules' variant='secondary' id='show-rules' label='Show Rules' type='button'
+                          @click='showRules = true' />
+              <vue-button name='delete' id='delete-game' label='Delete Game' type='button' @click='deleteGame' />
+            </div>
+          </div>
         </div>
-        <div class='flex flex-1 justify-center md:justify-between mb-3 space-x-4'>
-          <p>
-            {{ gameName }}
-          </p>
-          <vue-button name='delete' id='delete-game' label='Delete Game' type='button' @click='deleteGame' />
+      </template>
+      <template #page>
+        <Loader v-if='loading' />
+        <div class='w-full' v-else>
+          <Game :game='game' />
         </div>
-      </div>
-    </template>
-    <template #page>
-      <Loader v-if='loading' />
-      <div class='w-full' v-else>
-        <Game :game='game' />
-      </div>
-    </template>
-  </BaseLayout>
+      </template>
+    </BaseLayout>
+  </div>
 </template>
 
 <script>
@@ -32,11 +51,15 @@ import Game from '~/components/game/Game'
 import Loader from '~/components/layout/Loader'
 import Header from '~/components/layout/Header'
 import WarningAlert from '~/components/alerts/WarningAlert'
+import RulesModal from '~/components/game/RulesModal'
 
 export default {
-  async asyncData({ params }) {
+  async asyncData({ params, $content }) {
     const code = params.code
-    return { code }
+    const rules = await $content('rules').only(['page']).fetch()
+
+    let rulesContent = rules.page
+    return { code, rulesContent }
   },
 
   head() {
@@ -59,13 +82,15 @@ export default {
     Loader,
     VueButton,
     BaseLayout,
-    Game
+    Game,
+    RulesModal
   },
 
   data() {
     return {
       loading: true,
-      game: {}
+      game: {},
+      showRules: false
     }
   },
 

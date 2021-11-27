@@ -1,0 +1,48 @@
+{
+  "page" : [
+    {
+      "title": "Elbow / Wrist Rule",
+      "content": "<p>This is usually an unspoken rule at house parties (or at least until someone breaks it).</p><p>When shooting, players must keep their elbows behind the edge of the table. If a wrists rule is in effect, players must keep their wrists behind the edge of the table.</p> <p>Breaking this rule results in the shot not counting. If the shot is made, the infracting player may step back and re-shoot the ball.</p><p>This tends to be the most argued-over rule in Beer Pong, due to the fact that it is sometimes difficult to determine if the elbow / wrist does indeed cross the plane of the table.</p>"
+    },
+    {
+      "title": "Re-Racking",
+      "content": "<p>Twice per game, each team can request the cups to be rearranged at the start of their turn. This is known as re-racking, racking, or reforming.</p><p>Racking may take place when you have remaining cups in the amount of 6, 4, 3, or 2.</p><p>If you get balls back after making 2 in a row, it is still considered your turn and you may not get a rack. If requested, Last cup may always be pulled back and centered.</p>"
+    },
+    {
+      "title": "Bouncing / Swatting",
+      "content": "<p>If a ball hits the table and then goes into a cup (even by accident), the cup that the ball goes into is removed, as well as another cup of the defending player’s choice.</p><p>If there are only 2 cups remaining, the bounce only counts as one cup, so it’s fairly useless to bounce on the last 2 cups.</p>"
+    },
+    {
+      "title": "Fingering / Blowing",
+      "content": "<p>You may have heard the expression \"Guys Finger, Bitches Blow\" during a rule summary at the beginning of a game.</p><p>Fingering is when the ball is spinning inside of a cup and the defending team pulls it out with his/her finger.</p><p>Blowing is when the ball is spinning inside of a cup and it is blown out by the defending team.</p><p>If not specifically called at the beginning of the game, neither fingering nor blowing count.</p><p>This is due to the cheapness of the rule and the easiness of a player to blow out the ball, even after it has come into contact with the beer.</p>"
+    },
+    {
+      "title": "Fixing Cups",
+      "content": "<p>At any time in the game, a player may ask for the cups to be fixed. This is not to get confused with racking.</p><p>This is simply putting the cups back to where they would have been had they not slid or been knocked out of position.</p>"
+    },
+    {
+      "title": "Bitch Cup / Death Cup",
+      "content": "<p>Once a cup is made and is pulled up from the rack and before the contents have been consumed, the cup in a player’s hand (or even if they put the drink down) can be referred to as a bitch cup or death cup.</p><p>If this cup is made by the opposing team, the game is automatically over and the team to sink the bitch cup is victorious.</p><p>If the cup is still on the table and not in a hand and both balls land inside, it is 3 worth cups (2 additional chose by defending team). This is most common if players shoot at the same time or if the defending team is not paying attention.</p>"
+    },
+    {
+      "title": "On Table Rollbacks",
+      "content": "<p>After shooting, if the ball rolls back to the shooter without hitting the floor, they can shoot it again behind the back. The shot counts as one cup if made.</p>"
+    },
+    {
+      "title": "NBA Jams On Fire Rule",
+      "content": "<p>After a player hits two cups in a row, they can call “heating up.”</p><p>If they make their third shot they can announce that they're on fire and they can shoots until they miss. If the player fails to announce that they're heating up they cannot call on fire.</p>"
+    },
+    {
+      "title": "Island / Solo / Iso / Lonely Cup",
+      "content": "<p>This rule has many different aliases, but the concept is the same. Each player once per game can call a specific cup if it is not touching any other cup (singled out due to surrounding cups being hit, not from the cup sliding away from the other cups on a wet table).</p><p>If the called cup is hit, the defending team pulls the hit cup along with an additional cup of their choosing. If the shooter calls a specific cup and hits another, the ball is pulled out and the unintentionally hit cup remains on the table.</p>"
+    },
+    {
+      "title": "Rebuttal",
+      "content": "<p>After the last cup is hit each player from the losing team has a chance to hit the remaining cups. Each player shoots until they miss, the order in which this is done does not matter.</p><p>If there are racks left over they may be used now. Once both players miss and there are remaining cups, the game is over. If the players manage to hit all remaining cups the game goes into a 3 cup overtime.</p>"
+    },
+    {
+      "title": "Overtime",
+      "content": "<p>Three cups are placed back into a triangle shape and the would-have-been winners shoot first. There are no racks permitted on overtime, however the last cup may be pulled back / centered.</p>"
+    }
+  ]
+}

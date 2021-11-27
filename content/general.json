@@ -1,0 +1,24 @@
+{
+  "page": [
+    {
+      "title": "The Setup",
+      "content": "<p>Arrange ten (typically 18oz or 16oz) cups in a pyramid-like formation on each side of a beer pong table. The typical table size is about 8 feet long. Fill each cup with the desired amount of beer (or other alcohol or even water if you so choose).</p><p>Traditionally two 12oz beers are used to fill all ten cups, but this amount can vary depending on how much you’d like to drink.</p>",
+      "isSection": true
+    },
+    {
+      "title": "General Gameplay",
+      "content": "<p>Beer Pong is generally played by teams of two in which each team takes turn throwing a table tennis ball into the other team’s cups. Once a ball lands in a cup, the cup is taken away and the opponent then drinks the contents of the cup.</p><p>If both teammates hit cups, the balls are rolled back and they get to shoot again. The team that successfully hits all of the opponent’s cups wins the game.</p><p>Since there are a vast amount of variation on the game, it is good to quickly go over things like racks and bouncing/swatting before the game begins. Winner of the game typically stays on the table and awaits next challenger.</p>",
+      "isSection": true
+    },
+    {
+      "title": "Who goes first?",
+      "content": "<p>The first shot is decided by “Eyes.”</p><p>This is when a player from each team shoots the ball while maintaining eye contact with their opponent throughout their shot. If both players miss or both players make it, their partners now shoot.</p><p>This goes on until one person makes it and their opponent does not. The hit cup is not removed; the ball is taken out and rolled back to the team that sank the shot.</p>",
+      "isSection": true
+    },
+    {
+      "title": "Rules",
+      "subHeader": "The various rules of the game",
+      "isSection": true
+    }
+  ]
+}

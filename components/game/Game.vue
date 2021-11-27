@@ -26,7 +26,7 @@
             <Header>Currently Playing</Header>
             <SubTitle>The players that are currently playing</SubTitle>
           </div>
-          <div class='w-full items-center'>
+          <div class='w-full items-center mt-2 md:mt-0'>
             <vue-button name='completeRound' id='complete-round' label='Complete Round' @click='completeRound' />
           </div>
         </div>
