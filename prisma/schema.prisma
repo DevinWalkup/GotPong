@@ -19,6 +19,7 @@ model Game {
   CreateDate  String?
   UpdateDate  String?
   DeletedDate String?
+  PlayersPerRound Int @default(2)
 }
 
 model Player {
@@ -31,6 +32,9 @@ model Player {
   CreateDate  String?
   UpdateDate  String?
   DeletedDate String?
+  IsPlaying Boolean @default(false)
+  IsUpNext Boolean @default(false)
+  LastPlayed String?
 }
 
 

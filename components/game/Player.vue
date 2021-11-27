@@ -9,7 +9,7 @@
       <p :class='playerColor' class='font-bold'>Wins:</p>
       <p class='text-white'>{{ wins }}</p>
     </div>
-    <form @submit.prevent='addWin' class='mt-3'>
+    <form @submit.prevent='addWin' class='mt-3' v-if='showAddWinButton'>
       <vue-button name='add-win' id='addWin' label='Add Win' type='submit' :color='playerColor' />
     </form>
   </div>
@@ -35,6 +35,10 @@ export default {
     romanNumerals: {
       type: Boolean,
       default: true
+    },
+    showAddWinButton: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -44,7 +48,7 @@ export default {
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.localPlayer = JSON.parse(JSON.stringify(this.player))
   },
 
@@ -73,6 +77,10 @@ export default {
 
   methods: {
     async addWin() {
+      if (!this.showAddWinButton) {
+        return;
+      }
+
       let resp = null;
 
       try {
@@ -105,7 +113,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

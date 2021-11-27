@@ -19,6 +19,15 @@
           type='checkbox'
           v-model='model.ViewWinsAsRomanNumerals'
         />
+        <vue-input
+          label='Number of players per round'
+          name='playersPerRound'
+          id='players-per-round'
+          type='number'
+          required
+          v-model='model.PlayersPerRound'
+          placeholder='2'
+          min='2'/>
         <Header>
           Players
         </Header>
@@ -75,11 +84,12 @@ export default {
 
   data() {
     return {
-      totalPlayers: 1,
+      totalPlayers: 2,
       model: {
         GameName: '',
         Players: [],
-        ViewWinsAsRomanNumerals: false
+        ViewWinsAsRomanNumerals: false,
+        PlayersPerRound: 2
       },
       activePlayerIndex: null
     }
@@ -101,8 +111,12 @@ export default {
         errors.push("The players name is required!");
       }
 
+      if (this.model.PlayersPerRound < 2) {
+        errors.push("The minimum players per round is 2!");
+      }
+
       if (errors.length) {
-        this.$store.dispatch('alerts/error', 'There were errors in the form!');
+        this.$store.dispatch('alerts/error', {message: 'There were errors in the form!', fields: errors});
       }
 
       return errors.length === 0;
@@ -155,7 +169,7 @@ export default {
     },
 
     setActivePlayer(index) {
-      if (index === 1) {
+      if (index <= 2) {
         return false
       }
       this.activePlayerIndex = index
@@ -170,7 +184,7 @@ export default {
     },
 
     removePlayer(index) {
-      if (index === 1) {
+      if (index <= 2) {
         return
       }
 

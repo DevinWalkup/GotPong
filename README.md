@@ -23,8 +23,8 @@ a quick and dirty implementation to get the site live as quickly as possible
 Some items that I would like to add are:
 - Game Play Type (Frat vs College)
 - Page to visit Beer Pong rules
-- Currently playing and next up (if multiple players in the game)
-- Players per round (1v1, 2v2, etc.)
+- ~~Currently playing and next up (if multiple players in the game)~~ Done
+- ~~Players per round (1v1, 2v2, etc.)~~ Done
 - Sockets so multiple people can view the game at once and see the updates live
 
 ## Who is this for

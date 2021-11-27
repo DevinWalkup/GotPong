@@ -7,12 +7,14 @@ export interface GameData extends ModelData {
   GameCode: string
   ViewWinsAsRomanNumerals: boolean
   Players: Array<PlayerData>
+  PlayersPerRound: number
 }
 
 export interface CreateGameData {
   GameName: string
   ViewWinsAsRomanNumerals: boolean
-  Players: Array<CreatePlayerData>
+  Players: Array<CreatePlayerData>,
+  PlayersPerRound: number
 }
 
 export interface SetGameWinDisplayData {
@@ -22,4 +24,10 @@ export interface SetGameWinDisplayData {
 
 export interface RemoveGameData {
   GameId: string
+}
+
+export interface SetPlayersPerRoundData {
+  GameId: string
+  PlayersPerRound: number,
+  CurrentlyPlaying: Array<string>
 }

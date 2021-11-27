@@ -6,6 +6,8 @@ export interface PlayerData extends ModelData {
   PlayerColor: string
   Wins: number
   GameId: string
+  IsPlaying: boolean
+  IsUpNext: boolean
 }
 
 export interface CreatePlayerData {

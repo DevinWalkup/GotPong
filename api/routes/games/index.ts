@@ -1,6 +1,12 @@
 import express from "express"
-import { CreateGameData, RemoveGameData, SetGameWinDisplayData } from '@includes/interfaces'
-import { CreateGame, DeleteGame, GetGame, SetGameWinDisplay } from '../../../providers/games'
+import { CreateGameData, SetGameWinDisplayData } from '@includes/interfaces'
+import {
+  CreateGame,
+  DeleteGame,
+  GetGame,
+  SetGameWinDisplay,
+  SetNextRound
+} from '../../../providers/games'
 
 const app = express();
 
@@ -64,6 +70,23 @@ app.post('/create', (req, res) => {
       return res.status(200).send({"success": true});
     }).catch(() => {
       return res.status(500).send({"success": false});
+    })
+  })
+  .patch('/setNextRound', (req, res) => {
+    let gameId: string = req.body.GameId;
+
+    if (!gameId) {
+      return res.status(400).send({"message": "The game id was not provided!"});
+    }
+
+    SetNextRound(gameId).then((data) => {
+      if (!data) {
+        return res.status(500).send({"message": "There was an error setting the next round!"});
+      }
+
+      return res.status(200).send({"game": data});
+    }).catch((err) => {
+      return res.status(500).send({"message": err.message});
     })
   })
 

@@ -8,7 +8,10 @@
         :name='name'
         :autocomplete='autocomplete'
         :placeholder="placeholder"
-        class='mt-1 w-full bg-gray-400 text-white p-2 rounded-md placeholder-gray-300'
+        :min='min'
+        :max='max'
+        class='mt-1 w-full text-white p-2 rounded-md placeholder-gray-300'
+        :class='styles'
         v-model='inputValue'
       >
     </label>
@@ -19,6 +22,7 @@
         :name='name'
         :autocomplete='autocomplete'
         class='mt-1 w-4 bg-gray-400 text-white p-2 rounded-md'
+        :class='styles'
         v-model='inputValue'>
       <span :class="{'sr-only' : srOnly, '' : !srOnly }">{{ label }}</span> <span v-if="required">*</span>
     </label>
@@ -63,12 +67,28 @@ export default {
     type: {
       type: String,
       default: "text"
+    },
+    min: {
+      type: String,
+      required: false
+    },
+    max: {
+      type: String,
+      required: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
   computed: {
     isCheckbox() {
      return this.type === "checkbox";
+    },
+
+    styles() {
+      return this.disabled ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-400';
     }
   },
 
@@ -112,7 +132,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
