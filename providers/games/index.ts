@@ -98,6 +98,10 @@ export async function SetNextRound(gameId: string) {
     throw new Error("The game was not found!");
   }
 
+  if (game.Players.length === game.PlayersPerRound) {
+    return game;
+  }
+
   let nextUpPlayers = game.Players.filter((player) => {
     return !player.IsPlaying && !player.IsUpNext
   });

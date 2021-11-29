@@ -26,7 +26,7 @@
             <Header>Currently Playing</Header>
             <SubTitle>The players that are currently playing</SubTitle>
           </div>
-          <div class='w-full items-center mt-2 md:mt-0'>
+          <div class='w-full items-center mt-2 md:mt-0' v-if='showCompleteRound'>
             <vue-button name='completeRound' id='complete-round' label='Complete Round' @click='completeRound' />
           </div>
         </div>
@@ -190,18 +190,8 @@ export default {
       return !upNextUsers.length ? null : upNextUsers
     },
 
-    showPlayersPerRound() {
-      if (!this.playersPerRound) {
-        return false
-      }
-
-      let toNum = Number(this.playersPerRound)
-
-      if (toNum < 2) {
-        return false
-      }
-
-      return toNum !== this.localGame.PlayersPerRound
+    showCompleteRound() {
+      return this.upNextPlayers !== null;
     }
   },
 
