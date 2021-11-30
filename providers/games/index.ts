@@ -5,7 +5,7 @@ import {
   SetGameWinDisplayData
 } from '../../includes/interfaces'
 import { PlayerEntityToModel, SetPlayingUsers, SetUpNextUsers } from '../players'
-import { generateGameCode } from '../../includes/functions'
+import { generateGameCode, getRandomInt } from '../../includes/functions'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -74,15 +74,26 @@ export async function CreateGame(data: CreateGameData): Promise<GameData> {
       return await returnGame();
     }
 
-    let upNext = [];
-    if (notPlaying.length < data.PlayersPerRound) {
-      upNext = notPlaying.splice(0, notPlaying.length).map((player) => player.PlayerId);
-    } else {
-      upNext = notPlaying.splice(0, data.PlayersPerRound).map((player) => player.PlayerId);
-    }
+    let upNext = notPlaying.map((player) => player.PlayerId);
 
-    if (upNext.length !== data.PlayersPerRound) {
-      upNext.push(game.Players.find((player) => !upNext.includes(player.PlayerId)).PlayerId)
+    let upNextEntities = notPlaying.length + 1;
+
+    if (upNextEntities < data.PlayersPerRound) {
+      let totalPlayersToAdd = data.PlayersPerRound - upNextEntities;
+      let remainingPlayers = game.Players.filter((player) => {
+        return !upNext.includes(player.PlayerId)
+      })
+
+      for (let p = 0; p <= totalPlayersToAdd; p++) {
+        let idx = getRandomInt(remainingPlayers.length);
+        let playerId = remainingPlayers[idx].PlayerId;
+
+        while (upNext.includes(playerId)) {
+          idx = getRandomInt(remainingPlayers.length);
+        }
+
+        upNext.push(remainingPlayers[idx].PlayerId);
+      }
     }
 
     if (!upNext && !upNext.length) {
@@ -116,18 +127,32 @@ export async function SetNextRound(gameId: string) {
   }
 
   let nextUpPlayers = game.Players.filter((player) => {
-    return !player.IsPlaying || !player.IsUpNext
-  });
+    return !player.IsPlaying
+  }).map((player) => player.PlayerId);
 
-  let nextUp = []
-  if (nextUpPlayers.length < game.PlayersPerRound) {
-    nextUp = nextUpPlayers.splice(0, nextUpPlayers.length).map((player) => player.PlayerId);
-  } else {
-    nextUp = nextUpPlayers.splice(0, game.PlayersPerRound).map((player) => player.PlayerId);
+  let upNextEntities = nextUpPlayers.length + 1;
+
+  if (upNextEntities < game.PlayersPerRound) {
+    let totalPlayersToAdd = game.PlayersPerRound - upNextEntities;
+    let remainingPlayers = game.Players.filter((player) => {
+      return !nextUpPlayers.includes(player.PlayerId);
+    })
+
+    for (let p = 0; p < totalPlayersToAdd; p++) {
+      let idx = getRandomInt(remainingPlayers.length);
+      let playerId = remainingPlayers[idx].PlayerId;
+
+      while (nextUpPlayers.includes(playerId)) {
+        idx = getRandomInt(remainingPlayers.length);
+        playerId = remainingPlayers[idx].PlayerId;
+      }
+
+      nextUpPlayers.push(playerId);
+    }
   }
 
-  if (nextUp.length < game.PlayersPerRound) {
-    nextUp.push(game.Players.find((player) => !nextUp.includes(player.PlayerId)).PlayerId)
+  if (nextUpPlayers.length < game.PlayersPerRound) {
+    nextUpPlayers.push(game.Players.find((player) => !nextUpPlayers.includes(player.PlayerId)).PlayerId)
   }
 
   let date = new Date().toISOString();
@@ -156,8 +181,8 @@ export async function SetNextRound(gameId: string) {
 
   await prisma.$transaction([updateCurrentPlaying, updateCurrentUpNext]);
 
-  if (nextUp.length) {
-    await SetUpNextUsers(nextUp);
+  if (nextUpPlayers.length) {
+    await SetUpNextUsers(nextUpPlayers);
   } else {
     await prisma.player.updateMany({
       where: {
@@ -261,7 +286,6 @@ export async function DeleteGame(gameId: string): Promise<boolean> {
 
     await prisma.$transaction([deletePlayers, deleteGame])
   } catch (e) {
-    console.error(e)
     return false
   }
 

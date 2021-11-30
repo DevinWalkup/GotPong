@@ -7,6 +7,10 @@ export function generateGameCode() {
   return Array.from(nums).join('')
 }
 
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 export default function slugIt(str) {
   str = str.replace(/^\s+|\s+$/g, '') // trim
   str = str.toLowerCase()
