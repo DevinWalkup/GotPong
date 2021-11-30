@@ -56,6 +56,15 @@ export async function CreateGame(data: CreateGameData): Promise<GameData> {
     throw new Error("Error setting the playing users!");
   }
 
+  game = await prisma.game.findFirst({
+    where: {
+      GameId: game.GameId
+    },
+    include: {
+      Players: true
+    }
+  });
+
   if (data.Players.length === data.PlayersPerRound) {
       return await returnGame();
   } else {
@@ -70,6 +79,10 @@ export async function CreateGame(data: CreateGameData): Promise<GameData> {
       upNext = notPlaying.splice(0, notPlaying.length).map((player) => player.PlayerId);
     } else {
       upNext = notPlaying.splice(0, data.PlayersPerRound).map((player) => player.PlayerId);
+    }
+
+    if (upNext.length !== data.PlayersPerRound) {
+      upNext.push(game.Players.find((player) => !upNext.includes(player.PlayerId)).PlayerId)
     }
 
     if (!upNext && !upNext.length) {
@@ -103,7 +116,7 @@ export async function SetNextRound(gameId: string) {
   }
 
   let nextUpPlayers = game.Players.filter((player) => {
-    return !player.IsPlaying && !player.IsUpNext
+    return !player.IsPlaying || !player.IsUpNext
   });
 
   let nextUp = []
@@ -111,6 +124,10 @@ export async function SetNextRound(gameId: string) {
     nextUp = nextUpPlayers.splice(0, nextUpPlayers.length).map((player) => player.PlayerId);
   } else {
     nextUp = nextUpPlayers.splice(0, game.PlayersPerRound).map((player) => player.PlayerId);
+  }
+
+  if (nextUp.length < game.PlayersPerRound) {
+    nextUp.push(game.Players.find((player) => !nextUp.includes(player.PlayerId)).PlayerId)
   }
 
   let date = new Date().toISOString();

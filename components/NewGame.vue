@@ -132,7 +132,7 @@ export default {
         this.$nuxt.$options.router.push(`/game/${resp.data.game.GameCode}`)
         return;
       }).catch((err) => {
-        this.$store.dispatch('alerts/error', err.message);
+        this.$store.dispatch('alerts/error', err.response.data.message);
       })
     },
 
