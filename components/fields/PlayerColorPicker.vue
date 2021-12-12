@@ -11,7 +11,7 @@
       <div class='block'>
         <div class='relative'>
           <div id='color-picker' class='absolute z-10 bg-gray-400 rounded-md p-5 shadow-md' v-if='showPicker'
-               @blur='togglePicker' tabindex='1'>
+               @blur='hidePicker' tabindex='1'>
             <div class='flex flex-1 space-x-4'>
               <div v-for='color in colors'
                    :id='color'
@@ -92,12 +92,19 @@ export default {
       return `bg-${color}-500`
     },
 
+    hidePicker() {
+      this.showPicker = false;
+    },
+
     togglePicker() {
       this.showPicker = !this.showPicker
 
       if (!this.showPicker) {
         let ele = document.getElementById('color-picker')
-        ele.blur();
+
+        if (ele) {
+          ele.blur();
+        }
 
         return
       }
@@ -117,7 +124,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
