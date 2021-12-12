@@ -65,7 +65,7 @@ export async function CreateGame(data: CreateGameData): Promise<GameData> {
     }
   });
 
-  if (data.Players.length === data.PlayersPerRound) {
+  if (data.Players.length === Number(data.PlayersPerRound)) {
       return await returnGame();
   } else {
     let notPlaying = game.Players.filter((player) => !playingUsers.includes(player.PlayerId));
